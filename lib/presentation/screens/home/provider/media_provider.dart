@@ -25,11 +25,29 @@ class MediaProvider extends ChangeNotifier{
   MediaProvider (){
     _initialAudioPlayer();
   }
-
   void _initialAudioPlayer() {
     _audioPlayer.onDurationChanged.listen((newDuration){
       _duration = newDuration;
       notifyListeners();
     });
+    
+    _audioPlayer.onPositionChanged.listen((newPosition){
+      _position = newPosition;
+      notifyListeners();
+    });
+
+    _audioPlayer.onPositionChanged.listen((state){
+      _isPlaying = state == PlayerState.playing;
+      notifyListeners();
+    });
+
+    _audioPlayer.onPlayerComplete.listen((event) {});
+
+    if (_playlist.isNotEmpty){}
+
   }
+  Future<void> playNext(){
+    _currentIndex = (_currentIndex+1)%_playlist.length;
+  }
+  
 }
