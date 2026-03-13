@@ -7,5 +7,5 @@ class AppColors {
   static const Color surface = Color(0xFF1E1E1E);
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Colors.grey;
-  static const Color accent = Colors.deepOrangeAccent;
+  static const Color accent = Colors.deepPurpleAccent;
 }
