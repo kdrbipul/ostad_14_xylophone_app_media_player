@@ -46,8 +46,58 @@ class MediaProvider extends ChangeNotifier{
     if (_playlist.isNotEmpty){}
 
   }
-  Future<void> playNext(){
-    _currentIndex = (_currentIndex+1)%_playlist.length;
+
+  Future<void> _setAudioSource() async{
+    if(currentIndex != null){
+      final url = currentSong!.url;
+      await _audioPlayer.setSourceUrl(url);
+
+      _duration = Duration(seconds: currentSong!.durationSecond);
+      _position = Duration.zero;
+
+      notifyListeners();
+    }
   }
-  
+
+  Future<void> playPause() async{
+    if(_isPlaying){
+      await audioPlayer.pause();
+    }else{
+      await audioPlayer.play(UrlSource(currentSong!.url!));
+    }
+  }
+
+  Future<void> _playCurrentSong() async{
+    await _setAudioSource();
+    await audioPlayer.play(UrlSource(currentSong!.url!));
+    notifyListeners();
+  }
+
+  Future<void> playSongAtIndex(int index) async{
+    if (index >= 0 && index < _playlist.length){
+      _currentIndex = index;
+      _playCurrentSong();
+    }
+  }
+
+  Future<void> playNext() async{
+    _currentIndex = (_currentIndex+1)%_playlist.length;
+    await _playCurrentSong();
+  }
+
+  Future<void> playPrevious() async{
+    _currentIndex = (_currentIndex - 1 + _playlist.length) % _playlist.length;
+    await _playCurrentSong();
+  }
+
+  Future<void> seek(Duration position) async {
+    await  _audioPlayer.seek(position);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    audioPlayer.dispose();
+  }
 }
