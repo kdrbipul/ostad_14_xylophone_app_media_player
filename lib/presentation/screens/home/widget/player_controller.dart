@@ -87,11 +87,26 @@ class PlayerController extends StatelessWidget {
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
                     onPressed: () => provider.playPrevious(),
                     icon: Icon(Icons.skip_previous),
                   ),
+                  SizedBox(width: 24),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.accent,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      onPressed: () => provider.playPause(),
+                      icon: provider.isPlaying
+                          ? Icon(Icons.pause)
+                          : Icon(Icons.play_arrow),
+                    ),
+                  ),
+                  SizedBox(width: 24),
                   IconButton(
                     onPressed: () => provider.playNext(),
                     icon: Icon(Icons.skip_next),
