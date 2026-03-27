@@ -101,9 +101,9 @@ class PlayerController extends StatelessWidget {
                     ),
                     child: IconButton(
                       onPressed: () => provider.playPause(),
-                      icon: provider.isPlaying
-                          ? Icon(Icons.pause)
-                          : Icon(Icons.play_arrow),
+                      icon: Icon(
+                        provider.isPlaying ? Icons.pause : Icons.play_arrow,
+                      ),
                     ),
                   ),
                   SizedBox(width: 24),
