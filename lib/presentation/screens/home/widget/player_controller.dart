@@ -91,7 +91,7 @@ class PlayerController extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () => provider.playPrevious(),
-                    icon: Icon(Icons.skip_previous),
+                    icon: Icon(Icons.skip_previous, color: Colors.white, size: 28,),
                   ),
                   SizedBox(width: 24),
                   Container(
@@ -103,13 +103,15 @@ class PlayerController extends StatelessWidget {
                       onPressed: () => provider.playPause(),
                       icon: Icon(
                         provider.isPlaying ? Icons.pause : Icons.play_arrow,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
                   ),
                   SizedBox(width: 24),
                   IconButton(
                     onPressed: () => provider.playNext(),
-                    icon: Icon(Icons.skip_next),
+                    icon: Icon(Icons.skip_next, color: Colors.white, size: 28,),
                   ),
                 ],
               ),
