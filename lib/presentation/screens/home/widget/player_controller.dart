@@ -32,11 +32,8 @@ class PlayerController extends StatelessWidget {
               ),
               Text(
                 currentSong.artist,
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: AppColors.textSecondary, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
               SliderTheme(
                 data: SliderTheme.of(context).copyWith(
@@ -65,10 +62,53 @@ class PlayerController extends StatelessWidget {
                       : 1.0,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _formateDuration(provider.position),
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      _formateDuration(provider.duration),
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => provider.playPrevious(),
+                    icon: Icon(Icons.skip_previous),
+                  ),
+                  IconButton(
+                    onPressed: () => provider.playNext(),
+                    icon: Icon(Icons.skip_next),
+                  ),
+                ],
+              ),
             ],
           ),
         );
       },
     );
+  }
+
+  String _formateDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes : $seconds';
   }
 }
