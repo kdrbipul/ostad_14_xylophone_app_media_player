@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ostad_14_xylophone_app_media_player/core/constants/app_colors.dart';
 import 'package:ostad_14_xylophone_app_media_player/core/constants/app_strings.dart';
 import 'package:ostad_14_xylophone_app_media_player/presentation/screens/home/provider/media_provider.dart';
+import 'package:ostad_14_xylophone_app_media_player/presentation/screens/home/widget/player_controller.dart';
 import 'package:ostad_14_xylophone_app_media_player/presentation/screens/home/widget/song_list_item.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          PlayerController(),
           Expanded(
             child: Consumer<MediaProvider>(
               builder: (context, provider, child) {
