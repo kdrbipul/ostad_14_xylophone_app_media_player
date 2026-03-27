@@ -42,12 +42,28 @@ class PlayerController extends StatelessWidget {
                 data: SliderTheme.of(context).copyWith(
                   activeTickMarkColor: AppColors.accent,
                   inactiveTickMarkColor: AppColors.textSecondary.withValues(
-                    alpha: 0.3,
+                    alpha: 0.2,
                   ),
                   thumbColor: AppColors.accent,
-
+                  trackHeight: 4.0,
+                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6.0),
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 14),
                 ),
-                child: Slider(value: 1, onChanged: (value){}),
+                child: Slider(
+                  value: provider.position.inMilliseconds.toDouble().clamp(
+                    0.0,
+                    provider.duration.inMilliseconds.toDouble() > 0
+                        ? provider.duration.inMilliseconds.toDouble()
+                        : 1.0,
+                  ),
+                  onChanged: (value) {
+                    provider.seek(Duration(milliseconds: value.toInt()));
+                  },
+                  min: 0.0,
+                  max: provider.duration.inMilliseconds.toDouble() > 0
+                      ? provider.duration.inMilliseconds.toDouble()
+                      : 1.0,
+                ),
               ),
             ],
           ),
